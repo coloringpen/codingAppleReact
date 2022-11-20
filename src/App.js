@@ -22,7 +22,7 @@ function App() {
     '오늘은 공부하는 날',
   ]);
 
-  let [thumbUp, setThumbUp] = useState(0);
+  let [thumbUp, setThumbUp] = useState([0, 0, 0]);
 
   // let [postTitle1, postTitle2, postTitle3] = postTitle;
   // 혹은 아래에서 바로 postTitle에서 인덱싱을 해서 뽑으면 됨
@@ -45,9 +45,13 @@ function App() {
   let isModal = modal ? <Modal /> : null;
 
   /** 붐업버튼 */
-  const onClick = () => {
-    setThumbUp((pre) => (pre += 1));
-  };
+  /* const onClick = (e) => {
+    const thumbNum = Number(e.target.attributes.index.nodeValue);
+    let newThumb = [...thumbUp];
+    newThumb[thumbNum] += 1;
+    setThumbUp(newThumb); 어떡해서든 속성을 활용하고자했던 몸부림
+    // setThumbUp((pre) => (pre += 1));
+  };*/
 
   /** 제목바꾸기 파트 */
   const titleChange = () => {
@@ -83,25 +87,25 @@ function App() {
       <button onClick={rearrange}>가나다순 정렬</button>
       <button onClick={titleChange}>push push baby</button>
 
-      <div className="list">
-        {/* <h4>{postTitle1}</h4> */}
-        <h4>
-          {postTitles[0]} <span onClick={onClick}>👍</span> {thumbUp}
-          <br />
-        </h4>
-        <p>Published in Februery 17th</p>
-      </div>
-      <div className="list">
-        {/* <h4>{postTitle2}</h4> */}
-        <h4>{postTitles[1]}</h4>
-        <p>Published in November 20th</p>
-      </div>
-      <div className="list">
-        {/* <h4>{postTitle3}</h4> */}
-        <h4 onClick={modalShow}>{postTitles[2]}</h4>
-        <p>Published in November 21st</p>
-      </div>
-
+      {postTitles.map((item, index) => {
+        return (
+          <div className="list" key={index}>
+            <h4>{item}</h4>
+            <span
+              index={index}
+              onClick={() => {
+                const copy = [...thumbUp];
+                copy[index] += 1;
+                setThumbUp(copy);
+                /* 여기 스트레이트로 꽂아넣으면 이렇게 간단히 할 수 있음. 외부 변수를 볼 수 있으므로 */
+              }}
+            >
+              👍 {thumbUp[index]}
+            </span>
+            <p>Published in November 20th</p>
+          </div>
+        );
+      })}
       {isModal}
     </div>
   );
