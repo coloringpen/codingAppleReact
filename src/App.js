@@ -26,6 +26,7 @@ function App() {
 
   // let [postTitle1, postTitle2, postTitle3] = postTitle;
   // 혹은 아래에서 바로 postTitle에서 인덱싱을 해서 뽑으면 됨
+  // postTitle[n]
 
   /** 모달창 파트 */
   let [modal, setModal] = useState(false);
