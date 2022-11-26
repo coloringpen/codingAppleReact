@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function Modal({ title, postTitles }) {
   return (
@@ -9,6 +9,31 @@ function Modal({ title, postTitles }) {
       <p>details</p>
     </div>
   );
+}
+
+class Modal2 extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: 'kim',
+      age: 20,
+    };
+  }
+  render() {
+    return (
+      <div>
+        안녕! {this.state.name}
+        <button
+          onClick={() => {
+            this.setState({ name: 'hoho' });
+            console.log(this.state);
+          }}
+        >
+          change!
+        </button>
+      </div>
+    );
+  }
 }
 
 function App() {
@@ -92,6 +117,7 @@ function App() {
         );
       })}
       {modal ? <Modal title={title} postTitles={postTitles} /> : null}
+      <Modal2></Modal2>
     </div>
   );
 }
