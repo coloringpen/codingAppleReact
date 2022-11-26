@@ -24,12 +24,29 @@ function App() {
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0); // 숫자에 따라 다른 제목이 보이는 상태
 
+  /** input 파트 */
+  let [input, setInput] = useState('');
+
   return (
     <div className="App">
       <div className="black-nav">
         <h4>ReactBlog</h4>
       </div>
-
+      <input
+        onChange={(e) => {
+          setInput(e.target.value);
+        }}
+      />
+      <button
+        onClick={() => {
+          let newTitles = postTitles.concat(input);
+          let newThumbs = thumbUp.concat(0);
+          setTitles(newTitles);
+          setThumbUp(newThumbs);
+        }}
+      >
+        add post!
+      </button>
       {postTitles.map(function (item, index) {
         return (
           <div className="list" key={index}>
@@ -40,17 +57,30 @@ function App() {
               }}
             >
               {postTitles[index]}
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  let newThumb = [...thumbUp];
+                  newThumb[index] = thumbUp[index] + 1;
+                  setThumbUp(newThumb);
+                }}
+              >
+                👍
+              </span>
+              {thumbUp[index]}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setTitles(
+                    postTitles.filter(
+                      (post) => postTitles.indexOf(post) !== index
+                    )
+                  );
+                }}
+              >
+                delete!
+              </button>
             </h4>
-            <span
-              onClick={() => {
-                let newThumb = [...thumbUp];
-                newThumb[index] = thumbUp[index] + 1;
-                setThumbUp(newThumb);
-              }}
-            >
-              👍
-            </span>
-            <span>{thumbUp[index]}</span>
             <p>Published in November 20th</p>
           </div>
         );
