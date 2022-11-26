@@ -71,11 +71,17 @@ function App() {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
+                  {
+                    /*e.stopPropagation();
                   setTitles(
                     postTitles.filter(
                       (post) => postTitles.indexOf(post) !== index
                     )
-                  );
+                    )*/
+                  }
+                  let copy = [...postTitles];
+                  copy.splice(index, 1);
+                  setTitles(copy);
                 }}
               >
                 delete!
