@@ -12,8 +12,8 @@ function Modal({ title, postTitles }) {
 }
 
 class Modal2 extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: 'kim',
       age: 20,
@@ -58,6 +58,7 @@ function App() {
         <h4>ReactBlog</h4>
       </div>
       <input
+        value={input}
         onChange={(e) => {
           setInput(e.target.value);
         }}
@@ -68,6 +69,7 @@ function App() {
           let newThumbs = thumbUp.concat(0);
           setTitles(newTitles);
           setThumbUp(newThumbs);
+          setInput('');
         }}
       >
         add post!
